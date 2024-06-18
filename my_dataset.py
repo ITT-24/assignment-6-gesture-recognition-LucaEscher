@@ -1,39 +1,54 @@
-import config
 import os
 import pyglet
+import sys
+import xml.etree.ElementTree as ET
 
 from pyglet import shapes
-from recognizer import Recognizer
+
+SAVE_PATH = 'dataset/my_data'
+NAME = ''
+
+if len(sys.argv) > 1:
+    NAME = str(sys.argv[1])
 
 TITLE = '1$ Recognizer'
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
 
 window = pyglet.window.Window(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
-recognizer = Recognizer(config.Gestures.FIVE)
-recognizer.initialize()
 
 user_line = []
-result_label = pyglet.text.Label(text='Gesture: ',
+index = 1
+
+instruction_label = pyglet.text.Label(text='Draw a form!',
                                  font_name='Times New Roman',
-                                 font_size=24,
+                                 font_size=14,
                                  bold=True,
                                  x=WINDOW_WIDTH//2, y=WINDOW_HEIGHT//1.1,
                                  anchor_x='center', anchor_y='center',
                                  )
-
 quit_label = pyglet.text.Label(text='press Q to quit',
                                font_name='Times New Roman',
                                font_size=14,
                                x=WINDOW_WIDTH//2, y=WINDOW_HEIGHT//1.2,
                                anchor_x='center', anchor_y='center',
                                )
-
+index_label = pyglet.text.Label(text=f'Index: {index}',
+                               font_name='Times New Roman',
+                               font_size=14,
+                               x=WINDOW_WIDTH//1.1, y=WINDOW_HEIGHT//1.1,
+                               anchor_x='center', anchor_y='center',
+                               )
 
 @window.event
 def on_key_press(symbol, modifiers):
+    global index
     if symbol == pyglet.window.key.Q:
         os._exit(0)
+    if symbol == pyglet.window.key.SPACE:
+        index += 1
+    if symbol == pyglet.window.key.R:
+        index = 1
 
 
 @window.event
@@ -43,12 +58,25 @@ def on_mouse_press(x, y, button, modifiers):
 
 @window.event
 def on_mouse_release(x, y, button, modifiers):
+    if index < 10:
+        formatted_index = f"0{index}"
+    else:
+        formatted_index = str(index)
     if button and pyglet.window.mouse.LEFT:
         if len(user_line) > 0:
-            result, score = recognizer.recognize(user_line)
-            print("RESULT", result[0], score)
-            result_label.text = f'Gesture: {result[0]}'
-
+            gesture = ET.Element('Gesture')
+            gesture.set('Name', NAME + str(formatted_index))
+            gesture.set('Number', str(formatted_index))
+            gesture.set('NumPts', str(len(user_line)))
+            for point in user_line:
+                item = ET.SubElement(gesture, 'Point')
+                item.set('X', str(point[0]))
+                item.set('Y', str(point[1]))
+            
+            # create a new XML file
+            mydata = ET.tostring(gesture)
+            myfile = open(f'{SAVE_PATH}/{NAME}{formatted_index}.xml', 'wb')
+            myfile.write(mydata)
 
 @window.event
 def on_mouse_drag(x, y, dx, dy, buttons, modifiers):
@@ -62,8 +90,10 @@ def on_draw():
     for x, y in user_line:
         point = shapes.Circle(x, y, 8, color=(255, 255, 0))
         point.draw()
-    result_label.draw()
+    instruction_label.draw()
     quit_label.draw()
+    index_label.text = f'Index: {index}'
+    index_label.draw()
 
 
 if __name__ == '__main__':
