@@ -222,7 +222,7 @@ class HarryPotterGame:
         self.results.append(result_text)
         self.game_state = self.game_state + 0.5
 
-        print(f'Computer: {com_attack} || Player: {player_attack}')
+        # print(f'Computer: {com_attack} || Player: {player_attack}')
 
     def restart(self):
         self.score = 0
