@@ -1,16 +1,15 @@
-import config
 import os
 import pyglet
 
 from pyglet import shapes
-from recognizer import Recognizer
+from recognizer import Recognizer, FIVE
 
 TITLE = '1$ Recognizer'
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
 
 window = pyglet.window.Window(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
-recognizer = Recognizer(config.Gestures.FIVE)
+recognizer = Recognizer(FIVE)
 recognizer.initialize()
 
 user_line = []

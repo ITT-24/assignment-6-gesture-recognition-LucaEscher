@@ -1,6 +1,5 @@
 # $1 gesture recognizer
 
-import config
 from dollarpy import Recognizer
 import math
 import numpy as np
@@ -10,6 +9,11 @@ from sklearn.preprocessing import StandardScaler
 import xml.etree.ElementTree as ET
 
 dataset_path = './dataset/xml_logs/s01'
+
+NUM_POINTS = 64
+
+FIVE = ['check', 'circle', 'star', 'v', 'pigtail']
+THREE = ['check', 'circle', 'v']
 
 class Recognizer:
 
@@ -45,7 +49,7 @@ class Recognizer:
                         scaler = StandardScaler()
                         points = scaler.fit_transform(points)
 
-                        resampled = resample(points, config.RecognizerSetup.NUM_POINTS)
+                        resampled = resample(points, NUM_POINTS)
 
                         if not label in labels and label in gestures:
                             data.append((label, resampled))
@@ -212,5 +216,5 @@ class Recognizer:
 
 
 if __name__ == "__main__":
-    dollar_recognizer = Recognizer(config.Gestures.FIVE)
+    dollar_recognizer = Recognizer(FIVE)
     dollar_recognizer.initialize()
