@@ -13,7 +13,6 @@ dataset_path = './dataset/xml_logs/s01'
 NUM_POINTS = 64
 
 FIVE = ['check', 'circle', 'star', 'v', 'pigtail']
-THREE = ['check', 'circle', 'v']
 
 class Recognizer:
 
