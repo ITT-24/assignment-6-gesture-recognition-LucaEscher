@@ -87,9 +87,7 @@ class PredictionModel:
                         resampled = resample(points, NUM_POINTS)
 
                         if label in THREE_GESTURES:
-                            print(f'append + {label}')
                             data.append((label, resampled))
-                    print(f'append gar niiiiiix')
         return data
 
     def prepare_data(self, data):

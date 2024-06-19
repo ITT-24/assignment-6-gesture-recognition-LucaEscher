@@ -3,11 +3,16 @@
 from harry_potter import HarryPotterGame
 import os
 import pyglet
+import sys
 
 from pyglet import shapes
 from pyglet.gl import glClearColor
 from prediction_model import PredictionModel
 
+
+MODEL_LOADED = False
+if len(sys.argv) > 1:
+    MODEL_LOADED = str(sys.argv[1]) == 'True'
 
 
 TITLE = 'Harry Potter'
@@ -18,7 +23,9 @@ LABEL_COLOR_BLACK = (1, 1, 1, 255)
 window = pyglet.window.Window(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
 glClearColor (255, 255, 255, 1.0)
 
-recognizer = PredictionModel(True)
+print(MODEL_LOADED)
+print(type(MODEL_LOADED))
+recognizer = PredictionModel(MODEL_LOADED)
 user_line = []
 
 

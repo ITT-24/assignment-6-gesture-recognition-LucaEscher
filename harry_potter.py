@@ -5,20 +5,9 @@ import random
 
 from prediction_model import THREE_GESTURES
 
-THRESHOLD = 100
-SCORE_POINTS = 10
-
-# Collision Oversize helps the player:
-# - does not to have to hit the note exactly
-# - player hits the note a bit before and a bit after collision
-NOTE_COLLISION_OVERSIZE = 15
-PLAYER_COLLISION_OVERSIZE_FRONT = 4
-PLAYER_COLLISION_OVERSIZE_BACK = 15
-
 hagrid_fight_path = 'images/hagrid.png'
 dumbledore_fight_path = 'images/dumbeldore.png'
 voldemort_fight_path = 'images/voldemort.png'
-
 
 pigtail_path = 'images/pigtail.png'
 carret_path = 'images/carret.png'
