@@ -138,7 +138,6 @@ class PredictionModel:
         prediction = self.model.predict(np.array([gesture]))
         prediction = np.argmax(prediction)
         prediction_label = self.encoder.inverse_transform(np.array([prediction]))[0]
-        print(f'label = {prediction_label}')
         return prediction_label
         
 
