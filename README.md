@@ -23,7 +23,7 @@ You can add your own data with the following command:
 
 While drawing you can do some stuff:
 
-- i you draw a gesture it will automatically be saved as the filename + index if you release the left mouse button.
+- if you draw a gesture it will automatically be saved as the filename + index if you release the left mouse button.
 - to increase the index, press SPACE
 - to reset the index to 1, press R
 - to quit, press Q
@@ -31,9 +31,12 @@ While drawing you can do some stuff:
 ### Example:
 1. call python3 my_dataset.py circle
 2. draw a circle with your mouse - the file circle01 is created
-3. press Space
+3. press Space (increases the index)
 4. draw a circle with your mouse - the file circle02 is created
 5. and so on!
+- …
+- finally close the programm with Q
+
 
 
 ## Comparison
