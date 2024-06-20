@@ -69,6 +69,7 @@ def on_mouse_release(x, y, button, modifiers):
         if button and pyglet.window.mouse.LEFT:
             if len(user_line) > 0:
                 prediction = recognizer.predict_gesture(user_line)
+                print(prediction)
                 game.fight(prediction)
                 user_line.clear()
 
